@@ -2,6 +2,21 @@ git git clone https://github.com/sivamedia/MERN_AND_MEAN.git
 git remote set-url origin https://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@github.com/sivamedia/MERN_AND_MEAN.git
 git push
 
+API
+
+GET
+http://localhost:8081/api/tutorials/
+http://localhost:8081/api/tutorials/published
+
+POST
+http://localhost:8081/api/tutorials/
+
+PUT
+http://localhost:8081/api/tutorials/id
+
+DELETE
+http://localhost:8081/api/tutorials/id
+
 Mongo DB 8 unable to install old CPU avx support
 Please install Mongo DB 4.8
 
