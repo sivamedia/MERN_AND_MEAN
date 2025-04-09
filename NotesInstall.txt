@@ -1,0 +1,100 @@
+Mongo DB 8 unable to install old CPU avx support
+Please install Mongo DB 4.8
+
+sudo wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+sudo curl -fsSL https://pgp.mongodb.com/server-4.4.asc | \
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+sudo apt update
+sudo apt install -y mongodb-org
+
+Mongo DB commands 
+
+mongod --version
+=================
+
+db version v4.4.29
+Build Info: {
+    "version": "4.4.29",
+    "gitVersion": "f4dda329a99811c707eb06d05ad023599f9be263",
+    "openSSLVersion": "OpenSSL 1.1.1f  31 Mar 2020",
+    "modules": [],
+    "allocator": "tcmalloc",
+    "environment": {
+        "distmod": "ubuntu2004",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+
+mongos --version
+==================
+
+mongos version v4.4.29
+Build Info: {
+    "version": "4.4.29",
+    "gitVersion": "f4dda329a99811c707eb06d05ad023599f9be263",
+    "openSSLVersion": "OpenSSL 1.1.1f  31 Mar 2020",
+    "modules": [],
+    "allocator": "tcmalloc",
+    "environment": {
+        "distmod": "ubuntu2004",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+
+mongos  to run mongos shell
+=======
+
+sudo systemctl status mongod
+sudo systemctl stop mongod
+sudo systemctl start mongod
+
+cd /usr/bin
+
+
+ls -la mong*
+=================
+-rwxr-xr-x 1 root root 53891224 Dec 19  2013 mongo
+-rwxr-xr-x 1 root root 83421256 Dec 19  2013 mongod
+-rwxr-xr-x 1 siva siva 14252160 Jul 25  2024 mongodump
+-rwxr-xr-x 1 siva siva 13978728 Jul 25  2024 mongoexport
+-rwxr-xr-x 1 siva siva 13976344 Jul 25  2024 mongofiles
+-rwxr-xr-x 1 siva siva 14150688 Jul 25  2024 mongoimport
+-rwxr-xr-x 1 siva siva 14590840 Jul 25  2024 mongorestore
+-rwxr-xr-x 1 root root 65785056 Dec 19  2013 mongos
+-rwxr-xr-x 1 siva siva 13763624 Jul 25  2024 mongostat
+-rwxr-xr-x 1 siva siva 13385080 Jul 25  2024 mongotop
+
+
+
+siva@siva-VPCEC15FG:/usr/bin$ service mongod status
+=========================================================
+● mongod.service - MongoDB Database Server
+     Loaded: loaded (/usr/lib/systemd/system/mongod.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2025-04-09 13:53:32 IST; 34min ago
+       Docs: https://docs.mongodb.org/manual
+   Main PID: 8196 (mongod)
+     Memory: 61.3M (peak: 66.5M swap: 3.7M swap peak: 3.7M)
+        CPU: 20.002s
+     CGroup: /system.slice/mongod.service
+             └─8196 /usr/bin/mongod --config /etc/mongod.conf
+
+Apr 09 13:53:32 siva-VPCEC15FG systemd[1]: Started mongod.service - MongoDB Database Server.
+Apr 09 13:53:32 siva-VPCEC15FG mongod[8196]: {"t":{"$date":"2025-04-09T08:23:32.777Z"},"s":"I",  "c":"CONTROL",  "id":7484500, "ctx":"main","msg":"Envir>
+
+siva@siva-VPCEC15FG:/usr/bin$ 
+
+================================
+ps -efa | grep mongo
+
+======================
+mongodb     8196       1  0 13:53 ?        00:00:21 /usr/bin/mongod --config /etc/mongod.conf
+root        8216    3295  0 13:53 pts/0    00:00:00 sudo systemctl status mongod
+root        8217    8216  0 13:53 pts/1    00:00:00 sudo systemctl status mongod
+root        8218    8217  0 13:53 pts/1    00:00:00 systemctl status mongod
+siva        8444    8416  0 13:56 pts/3    00:00:03 /home/siva/UI_Study_2025/nodejs-express-mongodb/client/angular-crud/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.23.0 --ping
+siva       10598    9150  0 14:30 pts/4    00:00:00 grep --color=auto mongo
+siva@siva-VPCEC15FG:/usr/bin$ 
+
